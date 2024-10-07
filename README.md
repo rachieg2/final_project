@@ -19,15 +19,17 @@ Your container will now be running `R`. If you want open the `RStudio` server, n
 
 ## Create Report
 
-To fully re-create the final report, you can simply run the following in a bash environment:
+To fully re-create the final report, you can simply run the following in a bash environment, which will give you access to the docker bash environment:
 
 ```bash
+docker exec -it project_env bash
 make report.pdf
 ```
 
 To create the final report from scratch, even if you have created the report in the past, run the following commands in a bash environment:
 
 ```bash
+docker exec -it project_env bash
 make clean
 make report.pdf
 ```
