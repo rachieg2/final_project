@@ -1,4 +1,15 @@
-FROM rocker/verse
-RUN apt update && apt install -y man-db && rm -rf /var/lib/apt/lists/*
-RUN yes | unminimize
+FROM rocker/verse:latest
+
+RUN apt update && apt install git \
+    && DEBIAN_FRONTEND=noninteractive apt install -y python3-pip python-is-python3
+
+RUN pip3 install --upgrade pip && \
+    pip3 install \
+    requests \
+    beautifulsoup4 \
+    nltk \
+    pandas \
+    html5lib \
+    tqdm
+
 RUN R -e "install.packages(c('languageserver'), repos='http://cran.rstudio.com/')"

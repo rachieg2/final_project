@@ -2,21 +2,16 @@ import os
 import time
 import random
 import hashlib
+import pandas as pd
 import requests
 from bs4 import BeautifulSoup as BS
 import string
 import nltk
-from nltk.corpus import stopwords
 from collections import Counter
 import csv
+from tqdm import tqdm
+from time import sleep
 
-# Download necessary NLTK resources
-nltk.download("punkt")
-nltk.download("punkt_tab")
-nltk.download("stopwords")
-
-# Set of English stopwords
-stop_words = set(stopwords.words("english"))
 
 CACHE_DIR = "page_cache"
 
@@ -78,14 +73,33 @@ def fetch(url):
         return None
 
 
-def episode_list_urls():
-    """Fetches URLs of episodes from the main episode list page."""
-    source_url = "http://www.chakoteya.net/NextGen/episodes.htm"
-    bs = fetch(source_url)
+def get_all_plane_crash_urls() -> list:
+    """Gets all URLs for plane crash data to scrape.
+
+    Returns:
+        list: A list of all urls to parse with all plane crash info.
+    """
+    source_url = "https://www.planecrashinfo.com/database.htm"
+
+    # Get overall years
+    all_years = pd.read_html(source_url, flavor="bs4")[1]
+    all_years = all_years.values.tolist()
+    all_years = [x for xs in all_years for x in xs]
+    all_years = [i for i in all_years if (isinstance(i, int) | isinstance(i, float))]
+    all_years = [i for i in all_years if not pd.isnull(i)]
+    all_years = [int(i) for i in all_years]
+
     urls = []
-    for tb in bs.find_all("tbody"):
-        for anchor in tb.find_all("a"):
-            urls.append(f"http://www.chakoteya.net/NextGen/{anchor.attrs['href']}")
+    for yrs in tqdm(all_years):
+        sleep(2)
+        # Now, we need to get all the sub-urls from a year.
+        new_url = source_url.replace("database", f"{yrs}/{yrs}")
+        year_data = pd.read_html(new_url, flavor="bs4", encoding="latin-1")
+        if len(year_data) != 1:
+            raise ValueError(f"There is more than one table in the {yrs} page.")
+        year_data = year_data[0].reset_index()
+        for idx_ in list(year_data["index"]):
+            urls.append(source_url.replace("database", f"{yrs}/{yrs}-{idx_}"))
     return urls
 
 
