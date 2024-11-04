@@ -5,12 +5,10 @@ import hashlib
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup as BS
-import string
-import nltk
-from collections import Counter
 import csv
 from tqdm import tqdm
 from time import sleep
+from urllib.error import HTTPError
 
 
 CACHE_DIR = "page_cache"
@@ -37,11 +35,8 @@ def fetch_raw(url):
         "Accept-Language": "en-US,en;q=0.5",
     }
 
-    # Print the current time in HH:MM:SS AM/PM format before each fetch
-    print(f"Fetching {url} at {time.strftime('%I:%M:%S %p')}")
-
     try:
-        time.sleep(random.uniform(6, 12))  # Random delay to avoid hammering the server
+        time.sleep(random.uniform(2, 4))  # Random delay to avoid hammering the server
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             return response.text
@@ -63,8 +58,16 @@ def fetch(url):
             print(f"Loading cached page for {url}")
             return BS(file.read(), "html.parser")
 
-    # If not cached, fetch the raw page and cache it
-    page_content = fetch_raw(url)
+    # If not cached, fetch the table and cache it
+    try:
+        page_content = pd.read_html(url, flavor="bs4", encoding="latin-1")
+    except HTTPError as err:
+        if "404" in str(err):
+            return None
+        else:
+            raise err
+        # This isn't a rea URL
+        return None
     if page_content:
         with open(cache_file, "w", encoding="utf-8") as file:
             file.write(page_content)
@@ -94,35 +97,24 @@ def get_all_plane_crash_urls() -> list:
         sleep(2)
         # Now, we need to get all the sub-urls from a year.
         new_url = source_url.replace("database", f"{yrs}/{yrs}")
-        year_data = pd.read_html(new_url, flavor="bs4", encoding="latin-1")
-        if len(year_data) != 1:
-            raise ValueError(f"There is more than one table in the {yrs} page.")
-        year_data = year_data[0].reset_index()
-        for idx_ in list(year_data["index"]):
-            urls.append(source_url.replace("database", f"{yrs}/{yrs}-{idx_}"))
+        try:
+            year_data = pd.read_html(new_url, flavor="bs4", encoding="latin-1")
+            if len(year_data) != 1:
+                raise ValueError(f"There is more than one table in the {yrs} page.")
+            year_data = year_data[0].reset_index()
+            for idx_ in list(year_data["index"]):
+                urls.append(source_url.replace("database", f"{yrs}/{yrs}-{idx_}"))
+        except ValueError:
+            # For some reason, pandas can't find a table.
+            # So, make urls with 100 possibilities - more than any possible year
+            for idx_ in list(range(1, 100)):
+                urls.append(source_url.replace("database", f"{yrs}/{yrs}-{idx_}"))
     return urls
 
 
-def tokenize_and_count(text):
-    """Tokenizes the text, removes punctuation, stopwords, downcases, and counts word frequencies."""
-    # Remove punctuation and downcase
-    text = text.translate(str.maketrans("", "", string.punctuation)).lower()
-
-    # Tokenize the text
-    tokens = nltk.word_tokenize(text)
-
-    # Remove stop words
-    filtered_tokens = [word for word in tokens if word not in stop_words]
-
-    # Count the word frequencies
-    word_counts = Counter(filtered_tokens)
-
-    return word_counts
-
-
-def get_text_of_episodes():
+def get_plane_crash_data():
     """Fetches and returns an array of objects with episode URLs and their text."""
-    urls = episode_list_urls()
+    urls = get_all_plane_crash_urls()
     episodes = []
 
     for url in urls:
@@ -134,45 +126,6 @@ def get_text_of_episodes():
         episodes.append({"url": url, "text": txt})
 
     return episodes
-
-
-def get_word_counts_for_episodes(episodes):
-    """Takes an array of episode objects and calculates word frequencies for each."""
-    episode_word_counts = {}
-
-    for episode in episodes:
-        url = episode["url"]
-        text = episode["text"]
-
-        # Tokenize the text and count word frequencies
-        word_counts = tokenize_and_count(text)
-
-        # Store the word counts for each episode
-        episode_word_counts[url] = word_counts
-
-    return episode_word_counts
-
-
-def get_total_word_count(episode_word_counts):
-    """Calculates the total word count across all episodes."""
-    total_word_count = Counter()
-
-    for word_counts in episode_word_counts.values():
-        total_word_count.update(word_counts)
-
-    return total_word_count
-
-
-def convert_to_word_count_vectors(episode_word_counts, filtered_words):
-    """Converts word counts for each episode into a vector following the filtered word order."""
-    word_vectors = {}
-
-    for url, word_counts in episode_word_counts.items():
-        # Create a vector for this episode by the order of filtered_words
-        vector = [word_counts.get(word, 0) for word in filtered_words]
-        word_vectors[url] = vector
-
-    return word_vectors
 
 
 def write_word_counts_to_csv(
