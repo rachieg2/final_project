@@ -10,6 +10,9 @@ RUN pip3 install --upgrade pip && \
     nltk \
     pandas \
     html5lib \
-    tqdm
+    tqdm \
+    chardet \
+    ipykernel\
+    selenium
 
 RUN R -e "install.packages(c('languageserver'), repos='http://cran.rstudio.com/')"
