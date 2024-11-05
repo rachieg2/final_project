@@ -46,6 +46,7 @@ def fetch(url: str) -> pd.DataFrame:
 
     # If not cached, fetch the table and cache it
     try:
+        sleep(randint(2, 5))
         page_content = pd.read_html(
             url, flavor="bs4", encoding="latin-1", header=0, index_col=0, na_values="?"
         )[0]
@@ -118,7 +119,6 @@ def get_plane_crash_data() -> pd.DataFrame:
     all_planes = pd.DataFrame()
 
     for url in tqdm(urls):
-        sleep(randint(2, 5))
         plane_data = fetch(url)
         if plane_data is not None:
             all_planes = pd.concat([all_planes, plane_data])
