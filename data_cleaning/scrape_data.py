@@ -8,7 +8,7 @@ from urllib.error import HTTPError
 from pandas.errors import EmptyDataError
 
 
-CACHE_DIR = "../page_cache"
+CACHE_DIR = "page_cache"
 
 # Create the cache directory if it doesn't exist
 if not os.path.exists(CACHE_DIR):
@@ -128,7 +128,7 @@ def get_plane_crash_data() -> pd.DataFrame:
 
 def save_plane_data(
     plane_data: pd.DataFrame,
-    save_folder: str = "../data",
+    save_folder: str = "data",
     save_name: str = "plane_data.csv",
 ):
     """Save the plane data as a csv.
