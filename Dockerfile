@@ -12,7 +12,6 @@ RUN pip3 install --upgrade pip && \
     html5lib \
     tqdm \
     chardet \
-    ipykernel\
-    selenium
+    ipykernel
 
 RUN R -e "install.packages(c('languageserver'), repos='http://cran.rstudio.com/')"
