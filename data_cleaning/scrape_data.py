@@ -8,7 +8,7 @@ from urllib.error import HTTPError
 from pandas.errors import EmptyDataError
 
 
-CACHE_DIR = "page_cache"
+CACHE_DIR = "../page_cache"
 
 # Create the cache directory if it doesn't exist
 if not os.path.exists(CACHE_DIR):
@@ -101,7 +101,7 @@ def get_all_plane_crash_urls() -> list:
                 urls.append(source_url.replace("database", f"{yrs}/{yrs}-{idx_}"))
         except ValueError:
             # For some reason, pandas can't find a table.
-            # So, make urls with 50 possibilities - more than any possible year
+            # So, make urls with 100 possibilities - more than any possible year
             for idx_ in list(range(1, 100)):
                 urls.append(source_url.replace("database", f"{yrs}/{yrs}-{idx_}"))
     return urls
@@ -128,7 +128,7 @@ def get_plane_crash_data() -> pd.DataFrame:
 
 def save_plane_data(
     plane_data: pd.DataFrame,
-    save_folder: str = "data",
+    save_folder: str = "../data",
     save_name: str = "plane_data.csv",
 ):
     """Save the plane data as a csv.

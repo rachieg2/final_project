@@ -14,8 +14,9 @@ clean:
 # I would suggest just using the dataset from data/
 # I did not add the cached data folder to clean in order to avoid re-running for hours.
 data/plane_data.csv: \
-	scrape_data.py
-		python3 scrape_data.py
+	data_cleaning/scrape_data.py \
+	.created-dirs 
+		python3 data_cleaning/scrape_data.py
 
 report.pdf: \
 	data/plane_data.csv \
