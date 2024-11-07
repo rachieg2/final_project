@@ -53,6 +53,8 @@ plane_data$fixed_location <- plane_data$Location %>%
   str_replace("O{0,1}o{0,1}ver", "") %>%
   str_replace("^\\d\\,{0,1}\\d{1,3} (?:miles){0,1}(?:nm){0,1} [A-X]{0,3}", "") %>%
   str_squish()
+
+# only locations left as na are from the ussr
 plane_data <- plane_data %>%
   geocode(fixed_location, method = "arcgis", lat = latitude, long = longitude)
 
