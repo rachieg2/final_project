@@ -6,13 +6,20 @@ plane_data <- read_csv("data/plane_data.csv")
 
 # format dates and times
 plane_data$formatted_date <- mdy(plane_data$Date)
-plane_data$formatted_time <- plane_data$Time %>%
-  as.numeric() %>%
+plane_data$formatted_time <- str_replace(as.character(plane_data$Time), "^c:{0,1}\\s{0,1}", "")
+plane_data$formatted_time <- str_replace(as.character(plane_data$formatted_time), "Z", "")
+plane_data$formatted_time <- str_replace(as.character(plane_data$formatted_time), ";", ":")
+plane_data$formatted_time <- str_replace(as.character(plane_data$formatted_time), "\\.0", "")
+plane_data$formatted_time <- plane_data$formatted_time %>%
   as.character() %>%
   # Pad with leading zeros to ensure all times are 4 characters long
   str_pad(width = 4, side = "left", pad = "0") %>%
   # Insert a colon between hours and minutes
   str_replace("(\\d{2})(\\d{2})", "\\1:\\2") %>%
+  # force a fix on 3 problematic times
+  str_replace("^00:7$", "07:00") %>%
+  str_replace("01:75", "17:50") %>%
+  str_replace("^11:3$", "11:30") %>% 
   # Parse as time in 24-hour format
   parse_time(format = "%H:%M")
 
@@ -39,7 +46,14 @@ plane_data <- plane_data %>%
   )
 
 # Get lat/lons as much as possible for locations
+# replace terms like "near, over, off, X miles" to try to get estimates
+plane_data$fixed_location <- plane_data$Location %>%
+  str_replace("O{0,1}o{0,1}ff{0,1}", "") %>%
+  str_replace("N{0,1}n{0,1}ear", "") %>%
+  str_replace("O{0,1}o{0,1}ver", "") %>%
+  str_replace("^\\d\\,{0,1}\\d{1,3} (?:miles){0,1}(?:nm){0,1} [A-X]{0,3}", "") %>%
+  str_squish()
 plane_data <- plane_data %>%
-  geocode(Location, method = "osm", lat = latitude, long = longitude)
+  geocode(fixed_location, method = "arcgis", lat = latitude, long = longitude)
 
 write.csv(plane_data, "cleaned_data/cleaned_data.csv")
