@@ -42,4 +42,4 @@ plane_data <- plane_data %>%
 plane_data <- plane_data %>%
   geocode(Location, method = "osm", lat = latitude, long = longitude)
 
-write.csv(plane_data, "data/cleaned_data.csv")
+write.csv(plane_data, "cleaned_data/cleaned_data.csv")
