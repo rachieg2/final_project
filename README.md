@@ -17,6 +17,26 @@ Now, you can run the Docker environment associated with this project.
 
 Your container will now be running `R`. If you want open the `RStudio` server, navigate to [localhost:8787](localhost:8787) in your browser with username `rstudio` and password `password`.
 
+## Data Investigated
+
+This report investigates a dataset of over 5,000 aviation accidents since the early 1900s. All data is scraped from [Plane Crash Info](https://www.planecrashinfo.com/), a website maintained by [Richard Kebabjian](mailto:kebab@planecrashinfo.com).
+
+As the website states on its [database overview page](https://www.planecrashinfo.com/database.htm), this dataset includes all (or maybe most, according to the website's [disclaimer](https://www.planecrashinfo.com/disclaim.htm)) aviation accidents that meet the following criteria:
+
+- All civil and commercial aviation accidents of scheduled and non-scheduled passenger airliners worldwide, which resulted in a fatality (including all U.S. Part 121 and Part 135 fatal accidents)
+
+- All cargo, positioning, ferry and test flight fatal accidents.
+
+- All military transport accidents with 10 or more fatalities.
+
+- All commercial and military helicopter accidents with greater than 10 fatalities.
+
+- All civil and military airship accidents involving fatalities.
+
+- Aviation accidents involving the death of famous people.
+
+- Aviation accidents or incidents of noteworthy interest.
+
 ## Create Report
 
 To fully re-create the final report, you can simply run the following in a bash environment, which will give you access to the docker bash environment:
@@ -31,5 +51,14 @@ To create the final report from scratch, even if you have created the report in 
 ```bash
 docker exec -it project_env bash
 make clean
+make report.pdf
+```
+
+The above `make` call does not rebuild the scraped data, as it takes about 8 hours. If you want to build that first, you can call the following commands in a bash environment:
+
+```bash
+docker exec -it project_env bash
+make full_clean
+make make_data
 make report.pdf
 ```

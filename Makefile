@@ -5,6 +5,9 @@
 full_clean:
 	rm -rf data
 	rm -rf page_cache
+	rm -rf figures
+	rm -rf models
+	rm -rf cleaned_data
 
 clean:
 	rm -rf figures
@@ -27,7 +30,8 @@ make_data:
 # I did not add the cached data folder to clean in order to avoid re-running for hours.
 data/plane_data.csv: \
 	data_cleaning/scrape_data.py \
-	.created-data-dir
+	.created-data-dir \
+	.created-dirs
 		python3 data_cleaning/scrape_data.py
 
 # This one takes about an hour because of lat/lon searches
