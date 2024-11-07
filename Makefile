@@ -9,10 +9,12 @@ full_clean:
 clean:
 	rm -rf figures
 	rm -rf models
+	rm -rf cleaned_data
 
 .created-dirs:
 	mkdir -p figures
 	mkdir -p models
+	mkdir -p cleaned_data
 
 .created-data-dir:
 	mkdir -p data
@@ -28,9 +30,16 @@ data/plane_data.csv: \
 	.created-data-dir
 		python3 data_cleaning/scrape_data.py
 
+# This one takes about an hour because of lat/lon searches
+cleaned_data/cleaned_data.csv: \
+	data_cleaning/clean_data.R \
+	.created-dirs 
+		Rscript data_cleaning/clean_data.R
+
 # Data is not included, as the data is already in the repo.
 report.pdf: \
 	report.Rmd \
+	cleaned_data/cleaned_data.csv \
 	.created-dirs 
 		R -e "rmarkdown::render(\"report.Rmd\", output_format=\"pdf_document\")"
 

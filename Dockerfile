@@ -14,4 +14,4 @@ RUN pip3 install --upgrade pip && \
     chardet \
     ipykernel
 
-RUN R -e "install.packages(c('languageserver'), repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages(c('languageserver', 'tidygeocoder'), repos='http://cran.rstudio.com/')"
