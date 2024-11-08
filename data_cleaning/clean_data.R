@@ -59,6 +59,20 @@ plane_data$fixed_location <- plane_data$Location %>%
 
 # only locations left as na are from the ussr
 plane_data <- plane_data %>%
-  geocode(fixed_location, method = "arcgis", lat = latitude, long = longitude)
+  geocode(Location, method = "arcgis", lat = latitude, long = longitude)
 
-write.csv(plane_data, "cleaned_data/cleaned_data.csv")
+# Now, just run the "fixed" locations for lat/lons that were not found originally
+na_location <- plane_data %>% filter(is.na(latitude)) %>%
+  select(-latitude, -longitude) %>%
+  geocode(fixed_location, method = "arcgis", lat = latitude, long = longitude) %>%
+  select(c(latitude, longitude, Date, Location))
+
+df_filled <- plane_data %>%
+  left_join(na_location, by = c("Date", "Location"), suffix = c("", "_filled_data")) %>%
+  mutate(
+    latitude = if_else(is.na(latitude), latitude_filled_data, latitude),
+    longitude = if_else(is.na(longitude), longitude_filled_data, longitude)
+  ) %>%
+  select(-latitude_filled_data, -longitude_filled_data)
+
+write.csv(df_filled, "cleaned_data/cleaned_data.csv")
