@@ -4,6 +4,9 @@ library(tidygeocoder)
 
 plane_data <- read_csv("data/plane_data.csv")
 
+# Make sure there are no duplicates (there aren't.)
+plane_data <- plane_data %>% distinct()
+
 # format dates and times
 plane_data$formatted_date <- mdy(plane_data$Date)
 plane_data$formatted_time <- str_replace(as.character(plane_data$Time), "^c:{0,1}\\s{0,1}", "")
