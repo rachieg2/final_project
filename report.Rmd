@@ -6,7 +6,7 @@ output: pdf_document
 ---
 
 ```{r include=FALSE}
-knitr::opts_chunk$set(tidy.opts = list(width.cutoff = 40), tidy = TRUE, warning = FALSE)
+knitr::opts_chunk$set(tidy.opts = list(width.cutoff = 40), tidy = TRUE, warning = FALSE, message = FALSE)
 ```
 
 
@@ -43,3 +43,22 @@ After we saved the data from [Plane Crash Info](https://www.planecrashinfo.com/)
 We then completed a series of formatting steps. We ensured that both dates and times were standardized and recognizable as such by `tidyverse`. We made sure times were in 24 hour form.^[All times are local to the crash, as specified in the [database overview page](https://www.planecrashinfo.com/database.htm)] We also split the aboard and fatality columns into total, passengers, and crew. Finally, we ran queries through the `ArcGIS API` for each location description. Nearly all locations returned latitude and longitude points, but for those that did not, we cleaned the names of descriptors like "near" and re-ran the queries. When all queries finished, only twelve filled locations failed to include latitude and longitude marks. These twelve descriptions that did not find a latitude and longitude match are since-renamed parts of the former USSR. The cleaned dataset is available in the `cleaned_data` folder.
 
 ## Findings
+
+To begin our investigation, it makes sense to look at the trend of plane crashes over time. It may be a reasonable assumption that planes have become safer, but we can look at what the data shows us. Since there are not that many crashes overall, we will aggregate by year.
+
+```{r}
+library(tidyverse)
+library(lubridate)
+planes <- read_csv("cleaned_data/cleaned_data.csv")
+
+counts_by_year <- planes %>%
+    mutate(year = planes$formatted_date %>% isoyear()) %>%
+    group_by(year) %>%
+    count()
+ggplot(counts_by_year, aes(x = year, y = n)) +
+    geom_point() +
+    geom_smooth() +
+    ggtitle("Number of Plane Crashes by Year") +
+    xlab("Year") +
+    ylab("Number of Plane Crashes")
+```
