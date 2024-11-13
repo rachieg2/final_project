@@ -76,4 +76,5 @@ df_filled <- plane_data %>%
   ) %>%
   select(-latitude_filled_data, -longitude_filled_data)
 
+dir.create("/home/rstudio/work/cleaned_data", showWarnings = FALSE)
 write.csv(df_filled, "cleaned_data/cleaned_data.csv")
