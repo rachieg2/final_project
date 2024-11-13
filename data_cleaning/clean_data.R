@@ -22,7 +22,7 @@ plane_data$formatted_time <- plane_data$formatted_time %>%
   # force a fix on 3 problematic times
   str_replace("^00:7$", "07:00") %>%
   str_replace("01:75", "17:50") %>%
-  str_replace("^11:3$", "11:30") %>% 
+  str_replace("^11:3$", "11:30") %>%
   # Parse as time in 24-hour format
   parse_time(format = "%H:%M")
 
@@ -62,7 +62,8 @@ plane_data <- plane_data %>%
   geocode(Location, method = "arcgis", lat = latitude, long = longitude)
 
 # Now, just run the "fixed" locations for lat/lons that were not found originally
-na_location <- plane_data %>% filter(is.na(latitude)) %>%
+na_location <- plane_data %>%
+  filter(is.na(latitude)) %>%
   select(-latitude, -longitude) %>%
   geocode(fixed_location, method = "arcgis", lat = latitude, long = longitude) %>%
   select(c(latitude, longitude, Date, Location))
