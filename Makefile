@@ -42,10 +42,16 @@ cleaned_data/cleaned_data.csv: \
 	.created-dirs
 		Rscript data_cleaning/clean_data.R
 
+figures/num_crashes_by_year.png: \
+	.created_dirs \
+	cleaned_data/cleaned_data.csv \
+	conduct_analysis/number_crashes_year.R
+		Rscript conduct_analysis/number_crashes_year.R
+
 # Data is not included, as the data is already in the repo.
 report.pdf: \
 	report.Rmd \
-	cleaned_data/cleaned_data.csv \
+	figures/num_crashes_by_year.png \
 	.created-dirs 
 		R -e "rmarkdown::render(\"report.Rmd\", output_format=\"pdf_document\")"
 
