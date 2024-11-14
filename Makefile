@@ -8,11 +8,14 @@ full_clean:
 	rm -rf figures
 	rm -rf models
 	rm -rf cleaned_data
+	rm -rf .created-dirs
+	rm -rf .created-data-dir
 
 clean:
 	rm -rf figures
 	rm -rf models
 	rm -rf cleaned_data
+	rm -rf .created-dirs
 
 .created-dirs:
 	mkdir -p figures
