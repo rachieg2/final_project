@@ -17,9 +17,12 @@ clean:
 .created-dirs:
 	mkdir -p figures
 	mkdir -p models
+	mkdir -p cleaned_data
+	touch .created-dirs
 
 .created-data-dir:
 	mkdir -p data
+	touch .created-data-dir
 
 make_data:
 	$(MAKE) data/plane_data.csv
@@ -35,7 +38,8 @@ data/plane_data.csv: \
 
 # This one takes about an hour because of lat/lon searches
 cleaned_data/cleaned_data.csv: \
-	data_cleaning/clean_data.R
+	data_cleaning/clean_data.R \
+	.created-dirs
 		Rscript data_cleaning/clean_data.R
 
 # Data is not included, as the data is already in the repo.
