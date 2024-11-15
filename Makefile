@@ -46,7 +46,7 @@ cleaned_data/cleaned_data.csv: \
 		Rscript data_cleaning/clean_data.R
 
 figures/num_crashes_by_year.png: \
-	.created_dirs \
+	.created-dirs \
 	cleaned_data/cleaned_data.csv \
 	conduct_analysis/number_crashes_year.R
 		Rscript conduct_analysis/number_crashes_year.R
