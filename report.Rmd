@@ -52,3 +52,5 @@ To begin our investigation, it makes sense to look at the trend of plane crashes
 ![Airplane Operator with Most Accidents by Decade](figures/operators_most_crashes.png)
 
 ![First Two Principle Components for Plane Crash Descriptions](figures/pca_decade.png)
+
+![Locations of Airline Crashes](figures/map_crashes.png)

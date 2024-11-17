@@ -69,12 +69,19 @@ figures/pca_decade.png: \
 	conduct_analysis/pca_descriptions.R
 		Rscript conduct_analysis/pca_descriptions.R
 
+figures/map_crashes.png: \
+	.created-dirs \
+	cleaned_data/cleaned_data.csv \
+	conduct_analysis/crash_locations.R
+		Rscript conduct_analysis/crash_locations.R
+
 # Data is not included, as the data is already in the repo.
 report.pdf: \
 	report.Rmd \
 	figures/num_crashes_by_year.png \
 	figures/operators_most_crashes.png \
 	figures/pca_decade.png \
+	figures/map_crashes.png \
 	.created-dirs 
 		R -e "rmarkdown::render(\"report.Rmd\", output_format=\"pdf_document\")"
 

@@ -14,4 +14,4 @@ RUN pip3 install --upgrade pip && \
     chardet \
     ipykernel
 
-RUN R -e "install.packages(c('formatR', 'languageserver', 'tidygeocoder'), repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages(c('maps','formatR', 'languageserver', 'tidygeocoder'), repos='http://cran.rstudio.com/')"
