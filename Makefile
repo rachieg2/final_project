@@ -51,10 +51,17 @@ figures/num_crashes_by_year.png: \
 	conduct_analysis/number_crashes_year.R
 		Rscript conduct_analysis/number_crashes_year.R
 
+figures/operators_most_crashes.png: \
+	.created_dirs \
+	cleaned_data/cleaned_data.csv \
+	conduct_analysis/operator_count.R
+		Rscript conduct_analysis/operator_count.R
+
 # Data is not included, as the data is already in the repo.
 report.pdf: \
 	report.Rmd \
 	figures/num_crashes_by_year.png \
+	figures/operators_most_crashes.png \
 	.created-dirs 
 		R -e "rmarkdown::render(\"report.Rmd\", output_format=\"pdf_document\")"
 
