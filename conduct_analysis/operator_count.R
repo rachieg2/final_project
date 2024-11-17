@@ -1,5 +1,4 @@
 library(tidyverse)
-library(lubridate)
 planes <- read_csv("cleaned_data/cleaned_data.csv")
 
 

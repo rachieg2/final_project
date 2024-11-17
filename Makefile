@@ -57,11 +57,18 @@ figures/operators_most_crashes.png: \
 	conduct_analysis/operator_count.R
 		Rscript conduct_analysis/operator_count.R
 
+cleaned_data/plane_description_counts.csv: \
+	.created-dirs \
+	cleaned_data/cleaned_data.csv \
+	conduct_analysis/transform_descriptions.py
+		python3 conduct_analysis/transform_descriptions.py
+
 # Data is not included, as the data is already in the repo.
 report.pdf: \
 	report.Rmd \
 	figures/num_crashes_by_year.png \
 	figures/operators_most_crashes.png \
+	cleaned_data/plane_description_counts.csv \
 	.created-dirs 
 		R -e "rmarkdown::render(\"report.Rmd\", output_format=\"pdf_document\")"
 
