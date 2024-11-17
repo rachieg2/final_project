@@ -63,12 +63,18 @@ cleaned_data/plane_description_counts.csv: \
 	conduct_analysis/transform_descriptions.py
 		python3 conduct_analysis/transform_descriptions.py
 
+figures/pca_decade.png: \
+	.created-dirs \
+	cleaned_data/plane_description_counts.csv \
+	conduct_analysis/pca_descriptions.R
+		Rscript conduct_analysis/pca_descriptions.R
+
 # Data is not included, as the data is already in the repo.
 report.pdf: \
 	report.Rmd \
 	figures/num_crashes_by_year.png \
 	figures/operators_most_crashes.png \
-	cleaned_data/plane_description_counts.csv \
+	figures/pca_decade.png \
 	.created-dirs 
 		R -e "rmarkdown::render(\"report.Rmd\", output_format=\"pdf_document\")"
 
