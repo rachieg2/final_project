@@ -62,11 +62,18 @@ def get_word_counts_for_crash(plane_data: pd.DataFrame) -> dict:
     return summary_word_counts
 
 
-def get_total_word_count(episode_word_counts):
-    """Calculates the total word count across all episodes."""
+def get_total_word_count(summary_word_counts: dict) -> dict:
+    """Calculates the total word count across all episodes.
+
+    Args:
+        summary_word_counts (dict): A dictionary object of crashes and descriptions.
+
+    Returns:
+        dict: Updated count with all words.
+    """
     total_word_count = Counter()
 
-    for word_counts in episode_word_counts.values():
+    for word_counts in summary_word_counts.values():
         total_word_count.update(word_counts)
 
     return total_word_count
@@ -108,16 +115,18 @@ if __name__ == "__main__":
     # Calculate total word counts
     plane_desc_counts = get_word_counts_for_crash(plane_data)
 
-# Calculate total word count over all episodes
-total_word_count = get_total_word_count(episode_word_counts)
+    # Calculate total word count over all crashes
+    total_word_count = get_total_word_count(plane_desc_counts)
 
-# Filter words with a total count greater than 20 and sort by frequency
-filtered_words = [word for word, count in total_word_count.items() if count > 20]
+    # Filter words with a total count greater than 20 and sort by frequency
+    filtered_words = [word for word, count in total_word_count.items() if count > 20]
 
-# Convert each episode's word counts into a vector of word counts
-word_count_vectors = convert_to_word_count_vectors(episode_word_counts, filtered_words)
+    # Convert each episode's word counts into a vector of word counts
+    word_count_vectors = convert_to_word_count_vectors(
+        episode_word_counts, filtered_words
+    )
 
-# Write the word count vectors to a CSV file
-write_word_counts_to_csv(word_count_vectors, filtered_words)
+    # Write the word count vectors to a CSV file
+    write_word_counts_to_csv(word_count_vectors, filtered_words)
 
-print("Word counts written to 'episode_word_counts.csv'")
+    print("Word counts written to 'episode_word_counts.csv'")
