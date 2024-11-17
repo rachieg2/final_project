@@ -46,3 +46,7 @@ We then completed a series of formatting steps. We ensured that both dates and t
 To begin our investigation, it makes sense to look at the trend of plane crashes over time. It may be a reasonable assumption that planes have become safer, but we can look at what the data shows us. Since there are not that many crashes overall, we will aggregate by year.
 
 ![Number of Fatal Plane Crashes by Year](figures/num_crashes_by_year.png)
+
+
+
+![Airplane Operator with Most Accidents by Decade](figures/operators_most_crashes.png)

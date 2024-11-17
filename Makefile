@@ -52,7 +52,7 @@ figures/num_crashes_by_year.png: \
 		Rscript conduct_analysis/number_crashes_year.R
 
 figures/operators_most_crashes.png: \
-	.created_dirs \
+	.created-dirs \
 	cleaned_data/cleaned_data.csv \
 	conduct_analysis/operator_count.R
 		Rscript conduct_analysis/operator_count.R
