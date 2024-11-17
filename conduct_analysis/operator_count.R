@@ -16,7 +16,7 @@ top_operators_plot <- ggplot(top_operator_by_year, aes(x = as.factor(decade), y 
     geom_bar(stat = "identity", show.legend = FALSE) + # Bar plot without legend
     geom_text(aes(label = str_wrap(Operator)),
         position = position_stack(vjust = 0.5),
-        color = "black", size = 2
+        color = "black", size = 1.5
     ) +
     labs(
         x = "Decade",
