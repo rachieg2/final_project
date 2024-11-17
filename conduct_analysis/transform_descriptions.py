@@ -3,17 +3,25 @@ import nltk
 from nltk.corpus import stopwords
 from collections import Counter
 import csv
+import pandas as pd
 
 # Download necessary NLTK resources
-nltk.download("punkt")
+nltk.download("punkt_tab")
 nltk.download("stopwords")
 
 # Set of English stopwords
 stop_words = set(stopwords.words("english"))
 
 
-def tokenize_and_count(text):
-    """Tokenizes the text, removes punctuation, stopwords, downcases, and counts word frequencies."""
+def tokenize_and_count(text: str) -> Counter:
+    """Tokenizes the text, removes punctuation, stopwords, downcases, and counts word frequencies.
+
+    Args:
+        text (str): String to tokenize.
+
+    Returns:
+        Counter: A Counter object with counts of words
+    """
     # Remove punctuation and downcase
     text = text.translate(str.maketrans("", "", string.punctuation)).lower()
 
@@ -29,37 +37,29 @@ def tokenize_and_count(text):
     return word_counts
 
 
-def get_text_of_episodes():
-    """Fetches and returns an array of objects with episode URLs and their text."""
-    urls = episode_list_urls()
-    episodes = []
+def get_word_counts_for_crash(plane_data: pd.DataFrame) -> dict:
+    """Takes an array of episode objects and calculates word frequencies for each.
 
-    for url in urls:
-        bs = fetch(url)
-        b = bs.find("tbody")
-        txt = b.text
+    Args:
+        plane_data (pd.DataFrame): Dataframe with plane crash information.
 
-        # Store the URL and text in an object (dictionary) for each episode
-        episodes.append({"url": url, "text": txt})
+    Returns:
+        dict: Dict of index number of crash + Counter of word information
+    """
+    summary_word_counts = {}
 
-    return episodes
-
-
-def get_word_counts_for_episodes(episodes):
-    """Takes an array of episode objects and calculates word frequencies for each."""
-    episode_word_counts = {}
-
-    for episode in episodes:
-        url = episode["url"]
-        text = episode["text"]
-
+    i = 1
+    for plane_desc in list(plane_data["Summary"]):
         # Tokenize the text and count word frequencies
-        word_counts = tokenize_and_count(text)
+        if not pd.isna(plane_desc):
+            word_counts = tokenize_and_count(plane_desc)
 
-        # Store the word counts for each episode
-        episode_word_counts[url] = word_counts
+            # Store the word counts for each episode
+            summary_word_counts[i] = word_counts
 
-    return episode_word_counts
+        i += 1
+
+    return summary_word_counts
 
 
 def get_total_word_count(episode_word_counts):
@@ -101,9 +101,12 @@ def write_word_counts_to_csv(
             writer.writerow(row)
 
 
-# Example usage to fetch episode texts, get word counts, and calculate total word count
-episodes = get_text_of_episodes()
-episode_word_counts = get_word_counts_for_episodes(episodes)
+if __name__ == "__main__":
+    # Open cleaned dataset
+    plane_data = pd.read_csv("cleaned_data/cleaned_data.csv")
+
+    # Calculate total word counts
+    plane_desc_counts = get_word_counts_for_crash(plane_data)
 
 # Calculate total word count over all episodes
 total_word_count = get_total_word_count(episode_word_counts)
