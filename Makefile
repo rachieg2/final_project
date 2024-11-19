@@ -75,6 +75,12 @@ figures/map_crashes.png: \
 	conduct_analysis/crash_locations.R
 		Rscript conduct_analysis/crash_locations.R
 
+figures/perc_dead_plot.png figures/number_killed_ground_plot.png: \
+	.created-dirs \
+	cleaned_data/cleaned_data.csv \
+	conduct_analysis/number_dead.R
+		Rscript conduct_analysis/number_dead.R
+
 # Data is not included, as the data is already in the repo.
 report.pdf: \
 	report.Rmd \
@@ -82,6 +88,8 @@ report.pdf: \
 	figures/operators_most_crashes.png \
 	figures/pca_decade.png \
 	figures/map_crashes.png \
+	figures/perc_dead_plot.png \
+	figures/number_killed_ground_plot.png \
 	.created-dirs 
 		R -e "rmarkdown::render(\"report.Rmd\", output_format=\"pdf_document\")"
 

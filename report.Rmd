@@ -47,10 +47,12 @@ To begin our investigation, it makes sense to look at the trend of plane crashes
 
 ![Number of Fatal Plane Crashes by Year](figures/num_crashes_by_year.png)
 
+![Violin Plots for Percentage of Fatalities by Crew and Passenger](figures/perc_dead_plot.png)
 
+![Number Killed on the Ground over Time](figures/number_killed_ground_plot.png)
 
 ![Airplane Operator with Most Accidents by Decade](figures/operators_most_crashes.png)
 
-![First Two Principle Components for Plane Crash Descriptions](figures/pca_decade.png)
-
 ![Locations of Airline Crashes](figures/map_crashes.png)
+
+![First Two Principle Components for Plane Crash Descriptions](figures/pca_decade.png)
