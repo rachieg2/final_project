@@ -1,5 +1,4 @@
 library(tidyverse)
-library(lubridate)
 planes <- read_csv("cleaned_data/cleaned_data.csv")
 
 # First, get proportions of passenger/crew/total fatalities vs aboard
@@ -7,10 +6,11 @@ perc_dead_info <- planes %>%
     mutate(
         perc_dead = total_fatalities / total_aboard,
         perc_passengers_dead = passengers_fatalities / passengers_aboard,
-        perc_crew_dead = crew_fatalities / crew_aboard
+        perc_crew_dead = crew_fatalities / crew_aboard,
+        diff_perc = perc_passengers_dead - perc_crew_dead
     ) %>%
-    select("formatted_date", "perc_dead", "perc_passengers_dead", "perc_crew_dead") %>%
-    pivot_longer(cols = c("perc_dead", "perc_passengers_dead", "perc_crew_dead")) %>%
+    select("formatted_date", "perc_dead", "perc_passengers_dead", "perc_crew_dead", "diff_perc") %>%
+    pivot_longer(cols = c("perc_dead", "perc_passengers_dead", "perc_crew_dead", "diff_perc")) %>%
     filter(value <= 1) %>%
     mutate(
         name = factor(name, levels = c("perc_dead", "perc_passengers_dead", "perc_crew_dead")),
@@ -24,10 +24,19 @@ perc_dead_info <- planes %>%
     )
 
 perc_dead_plot <- perc_dead_info %>%
+    filter(!is.na(name)) %>%
     ggplot(aes(y = value, x = name)) +
     geom_violin() +
     xlab("Fatality Statistic") +
     ylab("Percentage Dead")
+
+diff_perc_dead <- perc_dead_info %>%
+    filter(is.na(name)) %>%
+    mutate(name = "") %>%
+    ggplot(aes(y = value, x = name)) +
+    geom_violin() +
+    xlab("") +
+    ylab("Difference in Percentage Between Passenger and Crew Deaths")
 
 max_killed <- max(planes$Ground, na.rm = TRUE)
 planes$highlight <- ifelse(planes$Ground == max_killed, "highlight", "normal")
@@ -45,3 +54,4 @@ number_killed_ground_plot <- ggplot(planes, aes(y = Ground, x = formatted_date))
 
 ggsave("figures/perc_dead_plot.png", perc_dead_plot)
 ggsave("figures/number_killed_ground_plot.png", number_killed_ground_plot)
+ggsave("figures/diff_perc_death.png", diff_perc_dead)

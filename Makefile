@@ -6,7 +6,6 @@ full_clean:
 	rm -rf data
 	rm -rf page_cache
 	rm -rf figures
-	rm -rf models
 	rm -rf cleaned_data
 	rm -rf .created-dirs
 	rm -rf .created-data-dir
@@ -19,7 +18,6 @@ clean:
 
 .created-dirs:
 	mkdir -p figures
-	mkdir -p models
 	mkdir -p cleaned_data
 	touch .created-dirs
 
@@ -75,7 +73,9 @@ figures/map_crashes.png: \
 	conduct_analysis/crash_locations.R
 		Rscript conduct_analysis/crash_locations.R
 
-figures/perc_dead_plot.png figures/number_killed_ground_plot.png: \
+figures/perc_dead_plot.png \
+figures/number_killed_ground_plot.png \
+figures/perc_dead_plot.png: \
 	.created-dirs \
 	cleaned_data/cleaned_data.csv \
 	conduct_analysis/number_dead.R
@@ -90,6 +90,7 @@ report.pdf: \
 	figures/map_crashes.png \
 	figures/perc_dead_plot.png \
 	figures/number_killed_ground_plot.png \
+	figures/perc_dead_plot.png \
 	.created-dirs 
 		R -e "rmarkdown::render(\"report.Rmd\", output_format=\"pdf_document\")"
 
