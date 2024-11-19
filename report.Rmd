@@ -47,6 +47,8 @@ To begin our investigation, it makes sense to look at the trend of plane crashes
 
 ![Number of Fatal Plane Crashes by Year](figures/num_crashes_by_year.png)
 
+![Fatal Plane Crashes By Month, Over Time](figures/heatmap_over_time.png)
+
 ![Violin Plots for Percentage of Fatalities by Crew and Passenger](figures/perc_dead_plot.png)
 
 ![Difference in the Percentage of Passenger and Crew Deaths](figures/diff_perc_death.png)
