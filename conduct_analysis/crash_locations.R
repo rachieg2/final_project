@@ -8,33 +8,19 @@ planes$decade <- as.factor(planes$decade)
 
 world_map <- map_data("world")
 
-p <- ggplot() +
-    coord_fixed() +
-    xlab("") +
-    ylab("")
 
-# Add map to base plot
-base_world_messy <- p + geom_polygon(
-    data = world_map, aes(x = long, y = lat, group = group),
-    colour = "black", fill = "white"
-)
-
-cleanup <-
-    theme(
-        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_rect(fill = "white", colour = "white"),
-        axis.line = element_line(colour = "white"), legend.position = "none",
-        axis.ticks = element_blank(), axis.text.x = element_blank(),
-        axis.text.y = element_blank()
-    )
-
-base_world <- base_world_messy + cleanup
-
-map_data <-
-    base_world +
+map_plot <- ggplot() +
+    # Plot the world map
+    geom_map(
+        data = world_map, map = world_map, aes(map_id = region),
+        fill = "gray90", color = "gray50"
+    ) +
+    # Plot the crash locations
     geom_point(
-        data = planes,
-        aes(x = longitude, y = latitude, fill = decade, color = decade, size = total_fatalities), pch = 21, alpha = I(0.7)
-    )
+        data = planes, aes(x = longitude, y = latitude),
+        alpha = 0.5, color = "blue"
+    ) +
+    # Facet by decade
+    facet_wrap(~decade, ncol = 3)
 
-ggsave("figures/map_crashes.png", map_data)
+ggsave("figures/map_crashes.png", map_plot, height = 30, width = 35, dpi = 300)
