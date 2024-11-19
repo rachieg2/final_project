@@ -76,7 +76,7 @@ figures/map_crashes.png: \
 
 figures/perc_dead_plot.png \
 figures/number_killed_ground_plot.png \
-figures/perc_dead_plot.png: \
+figures/diff_perc_death.png: \
 	.created-dirs \
 	cleaned_data/cleaned_data.csv \
 	conduct_analysis/number_dead.R
@@ -92,7 +92,7 @@ report.pdf: \
 	figures/map_crashes.png \
 	figures/perc_dead_plot.png \
 	figures/number_killed_ground_plot.png \
-	figures/perc_dead_plot.png \
+	figures/diff_perc_death.png \
 	.created-dirs 
 		R -e "rmarkdown::render(\"report.Rmd\", output_format=\"pdf_document\")"
 
