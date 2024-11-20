@@ -52,7 +52,6 @@ To begin our investigation, it makes sense to look at the trend of plane crashes
 knitr::include_graphics("figures/num_crashes_by_year.png")
 ```
 
-
 When we aggregate by year, we can see that there was a steep increase in fatal airplane crashes up until the 1950s. Part of this increase is likely due to a few things, including the increasing prevalence of plane travel over the 1900s and the two world wars, which involved heavy air fights. Interestingly, we see that from about 1945- the late 1990s, there were consistently higher numbers of plane crashes per year, even though the number was decreasing slightly overall. Then, around the 2000s, the number of fatal plane crashes steeply decreased, to nearly the same levels as the early 1900s, when planes were incredibly rare. It certainly appears to confirm our intuition that plane travel has always been relatively safe, and is certainly even more safe now than it ever has been before.
 
 However, it is possible that aggregating up by year could hide important trends. Thus, we can also look at a heatmap of the number of crashes by month over the entire time period in the dataset.
@@ -81,18 +80,28 @@ knitr::include_graphics("figures/diff_perc_death.png")
 
 Perhaps unsurprisingly, most crashes have the same death rate between crew and passengers, which makes sense when there are no survivors. It is interesting to see that most of the rest of the data is relatively evenly spread around the 0 axis, suggesting that passengers and crew survive generally at similar rates, although crew do seem to die slightly more when there are survivors, even though this trend is still slight.
 
+### Fatalities on the Ground
+
 ```{r, echo=FALSE, fig.cap="Number Killed on the Ground over Time", out.width = '100%', fig.pos="H"}
 knitr::include_graphics("figures/number_killed_ground_plot.png")
 ```
+
+### Operators with the Most Crashes
 
 ```{r, echo=FALSE, fig.cap="Airplane Operator with Most Accidents by Decade", out.width = '100%', fig.pos="H"}
 knitr::include_graphics("figures/operators_most_crashes.png")
 ```
 
+### Crash Locations over Time
+
 ```{r, echo=FALSE, fig.cap="Locations of Airline Crashes", out.width = '100%', fig.pos="H"}
 knitr::include_graphics("figures/map_crashes.png")
 ```
 
+### Crash Description Analysis
+
 ```{r, echo=FALSE, fig.cap="First Two Principle Components for Plane Crash Descriptions", out.width = '100%', fig.pos="H"}
 knitr::include_graphics("figures/pca_decade.png")
 ```
+
+## Conclusions
