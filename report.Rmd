@@ -18,7 +18,7 @@ In this report, we will investigate trends about plane crashes, going back as ea
 
 As the [Plane Crash Info](https://www.planecrashinfo.com/) website states on its [database overview page](https://www.planecrashinfo.com/database.htm), this dataset includes all (or maybe most, according to the website's [disclaimer](https://www.planecrashinfo.com/disclaim.htm)) aviation accidents that meet the following criteria:^[The criteria in the report are copied from the Plane Crash Info [database overview page](https://www.planecrashinfo.com/database.htm)]
 
-- All civil and commercial aviation accidents of scheduled and non-scheduled passenger airliners worldwide, which resulted in a fatality (including all U.S. Part 121 and Part 135 fatal accidents)
+- All civil and commercial aviation accidents of scheduled and non-scheduled passenger airliners worldwide, which resulted in a fatality (including all U.S. Part 121 and Part 135 fatal accidents).
 
 - All cargo, positioning, ferry and test flight fatal accidents.
 
@@ -52,7 +52,7 @@ To begin our investigation, it makes sense to look at the trend of plane crashes
 knitr::include_graphics("figures/num_crashes_by_year.png")
 ```
 
-When we aggregate by year, we can see that there was a steep increase in fatal airplane crashes up until the 1950s. Part of this increase is likely due to a few things, including the increasing prevalence of plane travel over the 1900s and the two world wars, which involved heavy air fights. Interestingly, we see that from about 1945- the late 1990s, there were consistently higher numbers of plane crashes per year, even though the number was decreasing slightly overall. Then, around the 2000s, the number of fatal plane crashes steeply decreased, to nearly the same levels as the early 1900s, when planes were incredibly rare. It certainly appears to confirm our intuition that plane travel has always been relatively safe, and is certainly even more safe now than it ever has been before.
+When we aggregate by year, we can see that there was a steep increase in fatal airplane crashes up until the 1950s. Part of this increase is likely due to a few things, including the increasing prevalence of plane travel over the 1900s and the two world wars, which involved heavy air fights. Interestingly, we see that from about 1945 the late 1990s, there were consistently higher numbers of plane crashes per year, even though the number was decreasing slightly overall. Then, around the 2000s, the number of fatal plane crashes steeply decreased, to nearly the same levels as the early 1900s. It certainly appears to confirm our intuition that plane travel has always been relatively safe, and is certainly even more safe now than it ever has been before.
 
 However, it is possible that aggregating up by year could hide important trends. Thus, we can also look at a heatmap of the number of crashes by month over the entire time period in the dataset.
 
@@ -60,7 +60,7 @@ However, it is possible that aggregating up by year could hide important trends.
 knitr::include_graphics("figures/heatmap_over_time.png")
 ```
 
-As we saw before, the bars at each edge, representing the beginning and most recent months, have the fewest fatal crashes, with many having zero or one. Beyond this overall pattern, there does not seem to be a strong trend in the figure, beyond the overall trend of the years in the middle having more crashes, which we saw before. Perhaps January and December have more crashes, but there is not a strong overall structure in the data when it comes to monthly patterns.
+As we saw before, the bars at each edge, representing the beginning and most recent months, have the fewest fatal crashes, with many having zero or one. Beyond this overall pattern, there does not seem to be a strong trend in the figure, beyond the years in the middle having more crashes, which we saw before. Perhaps January and December have more crashes, but there are not many strong monthly patterns.
 
 ### Fatality Rates
 
@@ -70,7 +70,7 @@ In addition to the overall crash numbers, the dataset contains information about
 knitr::include_graphics("figures/perc_dead_plot.png")
 ```
 
-When we look at the violin plots, it is clear that most crashes in our dataset have a complete fatality rate, with the majority of instances at above a 50% fatality rate. The most interesting trend in the graph appears to be that crew have a higher fatality rate than passengers, even if this rate is only slightly more likely. 
+When we look at the violin plots, it is clear that most crashes in our dataset have a complete fatality rate, with the majority of the other instances at above a 50% fatality rate. The most interesting trend in the graph appears to be that crew have a slightly higher fatality rate than passengers. 
 
 We can, therefore, look at the difference in fatality rates between crews and passengers for the same crashes. There are some planes with no passengers, but there are never planes without a crew, so we should expect some rates to be negative solely due to this reality. 
 
@@ -78,7 +78,7 @@ We can, therefore, look at the difference in fatality rates between crews and pa
 knitr::include_graphics("figures/diff_perc_death.png")
 ```
 
-Perhaps unsurprisingly, most crashes have the same death rate between crew and passengers, which makes sense when there are no survivors. It is interesting to see that most of the rest of the data is relatively evenly spread around the 0 axis, suggesting that passengers and crew survive generally at similar rates, although crew do seem to die slightly more when there are survivors, even though this trend is still slight.
+Perhaps unsurprisingly, most crashes have the same death rate between crew and passengers, which makes sense when there are no survivors. Crew do seem to die slightly more when there are survivors, but this difference is quite small, as most of the data for planes that had survivors is relatively evenly spread around the 0 axis. Thus, when there are survivors, there is not a major difference in survival rates between crew and passengers.
 
 ### Fatalities on the Ground
 
@@ -88,7 +88,7 @@ The dataset also includes statistics about the number of people killed on the gr
 knitr::include_graphics("figures/number_killed_ground_plot.png")
 ```
 
-Looking at this graph, it is clear that most plane crashes kill zero or less than ten people on the ground. However, the 9-11 attacks stand out as the worst case of non-flight deaths, with more than 2,500 deaths on the ground. This graph makes it clear just how unique these attacks are for the entire history of fatal flights.
+Looking at this graph, it is clear that most plane crashes kill zero or few people on the ground. However, the 9-11 attacks stand out as the worst case of non-flight deaths, with more than 2,500 casualties on the ground. This graph makes it clear just how unique these attacks are for the entire history of fatal flights.
 
 ### Operators with the Most Crashes
 
@@ -98,25 +98,27 @@ We also have information in the dataset about the operator of the plane. If we a
 knitr::include_graphics("figures/operators_most_crashes.png")
 ```
 
-Perhaps unsurprisingly, during the world wars, the U.S. and German militaries had the most crashes. The U.S. Aerial Mail Service had the most crashes in the 1920s, which is an interesting result. Additionally, Russian airline service Aeroflot had the most crashes in the 1960s-1990s, dominating the number of fatal flights during these decades. Aeroflot is still in operation today, but it does not seem to have had crashes after the 1990s.
+Perhaps unsurprisingly, during the world wars, the U.S. and German militaries had the most crashes. The U.S. Aerial Mail Service had the most crashes in the 1920s, which is surprising. Additionally, Russian airline service Aeroflot had the most crashes in the 1960s-1990s, dominating the number of fatal flights during these decades. Aeroflot is still in operation today, but it does not seem to have had a propensity for crashes after the 1990s.
 
-For the 2000, 2010, and 2020s, there have been so few crashes, that multiple operators have ties for the most fatal flights. In fact, the 2020s have only had one crash per operator, so we removed this column from the plot. As we discussed in the aforementioned plot of people killed on the ground, the fact that American Airlines appears in 2000 is due to the September 11 attacks.
+For the 2000s, 2010s, and 2020s, there have been so few crashes that multiple operators have ties for the most fatal flights. In fact, the 2020s have only had one crash per operator, so we removed this column from the plot. As we discussed in the aforementioned plot of people killed on the ground, the fact that American Airlines appears in 2000 is due to the September 11 attacks.
 
 ### Crash Locations over Time
 
-After our transformations of the original dataset, we have latitude and longitude locations for all crashes but twelve from the original USSR. We split the crashes by decade and plotted the crash locations on maps.
+After our transformations of the original dataset, we have latitude and longitude-specific locations for all crashes with location information except twelve. We split the crashes by decade and plotted the crash locations on maps.
 
 ```{r, echo=FALSE, fig.cap="Locations of Airline Crashes", out.width = '100%', fig.pos="H"}
 knitr::include_graphics("figures/map_crashes.png")
 ```
 
-One clear pattern is that air crashes originally only occurred in certain parts of the U.S. and Europe. Additionally, a surprising trend seems to be that most crashes occur either over land or very close to land, with very few in the ocean. As many stories about plane crashes focus on ocean landings, our assumption would be that many crashes occurred over water. This does not appear to be true. 
+One clear pattern is that air crashes originally only occurred in certain parts of the U.S. and Europe. With air travel being relatively rare, as well as World War I in the 1910s, it is unsurprising that all crashes would be related to early aviation in the U.S. and warfare. 
 
-Additionally, much of our news coverage of plane crashes in the modern era focus on civilian planes being shot down over war zones, such as Syria or Russia/Ukraine. However, plane crashes are widely distributed over time around the entire world. Most crashes appear near coasts, but it could be that plane crashes more often occur near major mountain ranges than any other geographical feature.
+In the remaining decades, a surprising trend seems to be that most crashes occur either over land or very close to land, with very few in the ocean. As many stories about plane crashes focus on ocean landings, our assumption would be that many crashes occurred over water. This does not appear to be true. Additionally, much of our news coverage of plane crashes in the modern era focus on civilian planes being shot down over war zones, such as Syria or Russia/Ukraine. However, plane crashes are widely distributed over time around the entire world. Most crashes appear near coasts, but it could be that plane crashes more often occur near major mountain ranges than any other geographical feature.
 
 ### Crash Description Analysis
 
-In addition to these descriptive statistic plots, we wanted to try dimensionality reduction. The dataset comes with brief, written descriptions of each plane crash in English. We used `NLTK` to remove stopwords and tokenize each word. We then turned each description into a vector, representing words available in the texts, leaving only more common words. We then conducted Principal Component Analysis (PCA) on these vectors, hoping to see clustering for different types of crashes. PCA is a method to reduce high dimensionality data into principal components, or the mathematical vectors which best represent the most information in the dataset. We will look at the first two components, which contain the most information from our text vectors in two dimensions.
+In addition to these descriptive statistic plots, we wanted to try dimensionality reduction. The dataset comes with brief, written descriptions of each plane crash in English. We used `NLTK` to remove stopwords and tokenize each word. We then turned each description into a vector, representing words available in the texts, leaving only more common words. The full dataset of vectors is in the `cleaned_data` folder, called `plane_description_counts.csv`. 
+
+We then conducted Principal Component Analysis (PCA) on these vectors, hoping to see clustering for different types of crashes. PCA is a method to reduce high dimensionality data into principal components, or the mathematical vectors which best represent the most information in the dataset. We will look at the first two components, which contain the best representation of our text vectors in two dimensions.
 
 ```{r, echo=FALSE, fig.cap="First Two Principle Components for Plane Crash Descriptions", out.width = '100%', fig.pos="H"}
 knitr::include_graphics("figures/pca_decade.png")
@@ -126,11 +128,10 @@ This dimensionality reduction did not cluster the data in meaningful ways, and d
 
 ## Conclusions
 
-The Plane Crash dataset from [Plane Crash Info](https://www.planecrashinfo.com/) contains data full of interesting observations for anyone curious about the history of fatal plane crashes. The reality is that planes are exceptionally safe, as there are only about 5,000 entries from 1908 to today. Even in the worst years for crashes, the 1950s-1990s, there were only about 80 crashes per year. With millions of flights each year, planes are much safer than other common transportation methods, including car travel.
+The Plane Crash dataset from [Plane Crash Info](https://www.planecrashinfo.com/) contains data full of interesting observations for anyone curious about the history of fatal plane crashes. The reality is that planes are exceptionally safe, as there are only about 5,000 entries from 1908 to today. Even in the worst years for crashes, the 1950s-1990s, there were only about 80 crashes per year. With millions of flights around the world yearly, planes are much safer than other common transportation methods, including car travel.
 
-However, the prevalence of fear surrounding plane travel may be due to the fact that most plane crashes have few or no survivors, even as plane travel has gotten much safer recently. Newspapers, of course, report stories of fatal plane crashes as headline news, in part because these crashes are so rare. However, this reporting can cause misconceptions, such as that plane crashes are often over water or that a certain carrier, such as Boeing in the last year, is more deadly. In reality, even with the recent Boeing incidents, Boeing is no more dangerous than any other carrier. Other misconceptions such as these can be disproven when looking at the data itself.
-
+However, the prevalence of fear surrounding aviation may be due to the fact that most plane crashes have few or no survivors, even as plane travel has gotten much safer recently. Additionally, in part because crashes are so rare, newspapers report stories of fatal plane crashes as headline news. This reporting can cause misconceptions, such as that plane crashes are common, often over water, or that a certain carrier, such as Boeing in the last year, is more deadly. In reality, plane travel is safe, planes most often crash near or over land, and even with the recent Boeing incidents, Boeing is no more dangerous than any other carrier. Other misconceptions such as these can be disproven when looking at the data itself.
 
 ### Future Work 
 
-This dataset would likely be best represented in an interactive setting, such as a `d3`-driven `HTML` site. The data, although it includes relatively few columns, has many high-dimensional variables that are difficult to represent in any static form. In the future, I would be interested in investigating the trend of certain operators with the descriptions of the crashes. Additionally, separating the dataset into military versus commercial versus personal crashes could give further insight into the reasons these planes have crashed in the past.
+This dataset would likely be best represented in an interactive setting, such as a `d3`-driven website. The data, although it includes relatively few columns, has many high-dimensional variables that are difficult to represent in any static form. In the future, we would be interested in investigating the trend of certain operators with the descriptions of the crashes, using techniques like PCA and interactive visualizations. Additionally, separating the dataset into military versus commercial versus personal crashes could give further insight into the reasons planes crashed in the past.
