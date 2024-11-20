@@ -82,15 +82,25 @@ Perhaps unsurprisingly, most crashes have the same death rate between crew and p
 
 ### Fatalities on the Ground
 
+The dataset also includes statistics about the number of people killed on the ground when the plane crashed.
+
 ```{r, echo=FALSE, fig.cap="Number Killed on the Ground over Time", out.width = '100%', fig.pos="H"}
 knitr::include_graphics("figures/number_killed_ground_plot.png")
 ```
 
+Looking at this graph, it is clear that most plane crashes kill zero or less than ten people on the ground. However, the 9-11 attacks stand out as the worst case of non-flight deaths, with more than 2,500 deaths on the ground. This graph makes it clear just how unique these attacks are for the entire history of fatal flights.
+
 ### Operators with the Most Crashes
+
+We also have information in the dataset about the operator of the plane. If we aggregate by decade, we can investigate the most fatal operators by decade.
 
 ```{r, echo=FALSE, fig.cap="Airplane Operator with Most Accidents by Decade", out.width = '100%', fig.pos="H"}
 knitr::include_graphics("figures/operators_most_crashes.png")
 ```
+
+Perhaps unsurprisingly, during the world wars, the U.S. and German militaries had the most crashes. The U.S. Aerial Mail Service had the most crashes in the 1920s, which is an interesting result. Additionally, Russian airline service Aeroflot had the most crashes in the 1960s-1990s, dominating the number of fatal flights during these decades. Aeroflot is still in operation today, but it does not seem to have had crashes after the 1990s.
+
+For the 2000, 2010, and 2020s, there have been so few crashes, that multiple operators have ties for the most fatal flights. In fact, the 2020s have only had one crash per operator, so we removed this column from the plot. As we discussed in the aforementioned plot of people killed on the ground, the fact that American Airlines appears in 2000 is due to the September 11 attacks.
 
 ### Crash Locations over Time
 
