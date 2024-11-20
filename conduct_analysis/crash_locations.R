@@ -21,6 +21,6 @@ map_plot <- ggplot() +
         alpha = 0.5, color = "blue"
     ) +
     # Facet by decade
-    facet_wrap(~decade, ncol = 3)
+    facet_wrap(~decade, ncol = 2)
 
-ggsave("figures/map_crashes.png", map_plot, height = 30, width = 35, dpi = 300)
+ggsave("figures/map_crashes.png", map_plot, height = 40, width = 25, dpi = 300)
