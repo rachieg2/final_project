@@ -14,6 +14,7 @@ Now, you can run the Docker environment associated with this project.
    1. `bash`
    2. If you haven't run the shell script before, you need to change the file permissions to make it an executable. Run this command to do so: `chmod +x run_docker.sh`.
    3. Run the shell script: `./run_docker.sh`.
+   4. If step 3 fails, you may need to make `run_docker.sh` friendly with Ubuntu. If so, run the following commands: `sudo apt-get update`, `sudo apt-get install dos2unix`, `dos2unix run_docker.sh`. Now, repeat step 3.
 
 Your container will now be running `R`. If you want open the `RStudio` server, navigate to [localhost:8787](localhost:8787) in your browser with username `rstudio` and password `password`. You can easily stop the container by sending the kill signal, CTRL + C, into the `bash` terminal.
 
