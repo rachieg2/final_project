@@ -11,7 +11,7 @@ perc_dead_info <- planes %>%
     ) %>%
     select("formatted_date", "perc_dead", "perc_passengers_dead", "perc_crew_dead", "diff_perc") %>%
     pivot_longer(cols = c("perc_dead", "perc_passengers_dead", "perc_crew_dead", "diff_perc")) %>%
-    filter(value <= 1) %>%
+    filter(abs(value) <= 1) %>%
     mutate(
         name = factor(name, levels = c("perc_dead", "perc_passengers_dead", "perc_crew_dead")),
 
