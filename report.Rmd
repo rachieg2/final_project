@@ -104,9 +104,15 @@ For the 2000, 2010, and 2020s, there have been so few crashes, that multiple ope
 
 ### Crash Locations over Time
 
+After our transformations of the original dataset, we have latitude and longitude locations for all crashes but twelve from the original USSR. We split the crashes by decade and plotted the crash locations on maps.
+
 ```{r, echo=FALSE, fig.cap="Locations of Airline Crashes", out.width = '100%', fig.pos="H"}
 knitr::include_graphics("figures/map_crashes.png")
 ```
+
+One clear pattern is that air crashes originally only occurred in certain parts of the U.S. and Europe. Additionally, a surprising trend seems to be that most crashes occur either over land or very close to land, with very few in the ocean. As many stories about plane crashes focus on ocean landings, our assumption would be that many crashes occurred over water. This does not appear to be true. 
+
+Additionally, much of our news coverage of plane crashes in the modern era focus on civilian planes being shot down over war zones, such as Syria or Russia/Ukraine. However, plane crashes are widely distributed over time around the entire world. Most crashes appear near coasts, but it could be that plane crashes more often occur near major mountain ranges than any other geographical feature.
 
 ### Crash Description Analysis
 
