@@ -12,7 +12,6 @@ full_clean:
 
 clean:
 	rm -rf figures
-	rm -rf models
 	rm -rf cleaned_data
 	rm -rf .created-dirs
 
@@ -23,6 +22,7 @@ clean:
 
 .created-data-dir:
 	mkdir -p data
+	mkdir -p page_cache
 	touch .created-data-dir
 
 make_data:

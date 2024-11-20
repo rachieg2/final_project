@@ -15,7 +15,7 @@ Now, you can run the Docker environment associated with this project.
    2. If you haven't run the shell script before, you need to change the file permissions to make it an executable. Run this command to do so: `chmod +x run_docker.sh`.
    3. Run the shell script: `./run_docker.sh`.
 
-Your container will now be running `R`. If you want open the `RStudio` server, navigate to [localhost:8787](localhost:8787) in your browser with username `rstudio` and password `password`.
+Your container will now be running `R`. If you want open the `RStudio` server, navigate to [localhost:8787](localhost:8787) in your browser with username `rstudio` and password `password`. You can easily stop the container by sending the kill signal, CTRL + C, into the `bash` terminal.
 
 ## Data Investigated
 
@@ -39,26 +39,35 @@ As the website states on its [database overview page](https://www.planecrashinfo
 
 ## Create Report
 
-To fully re-create the final report, you can simply run the following in a bash environment, which will give you access to the docker bash environment:
+To fully re-create the final report, you can run a simple `Make` command in the container. In the `run_docker.sh` helper script, there are easy helper calls to enter a bash terminal inside the container. Run the following in a `bash` console in the the repository folder:
 
 ```bash
-docker exec -it project_env bash
+./run_docker.sh bash
 make report.pdf
+
+# To exit:
+kill 1
 ```
 
-To create the final report from scratch, even if you have created the report in the past, run the following commands in a bash environment:
+To create the final report from scratch, even if you have created the report in the past, run the following commands in a bash environment in the repository folder:
 
 ```bash
-docker exec -it project_env bash
+./run_docker.sh bash
 make clean
 make report.pdf
+
+# To exit:
+kill 1
 ```
 
-The above `make` call does not rebuild the scraped data, as it takes about 8 hours. If you want to build that first, you can call the following commands in a bash environment:
+The above `Make` call does not rebuild the scraped data, as it takes about 8 hours. If you want to build that first, you can call the following commands in a bash environment in the repository folder:
 
 ```bash
-docker exec -it project_env bash
+./run_docker.sh bash
 make full_clean
 make make_data
 make report.pdf
+
+# To exit:
+kill 1
 ```
