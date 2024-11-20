@@ -1,7 +1,7 @@
 ---
 title: 'Airplane Crashes over Time'
 author: "Rachel Kudzin"
-date: "Due: 12/6/2024"
+date: "Due: 12/07/2024"
 output: pdf_document
 ---
 
@@ -43,9 +43,11 @@ We then completed a series of formatting steps. We ensured that both dates and t
 
 ## Findings
 
-To begin our investigation, it makes sense to look at the trend of plane crashes over time. It may be a reasonable assumption that planes have become safer, but we can look at what the data shows us. Since there are not that many crashes overall, we will aggregate by year.
+To begin our investigation, it makes sense to look at the trend of plane crashes over time. It seems to be a reasonable assumption that crashes have decreased, but we will need to see the specific information to confirm. Since there are not that many crashes overall, we will aggregate by year.
 
 ![Number of Fatal Plane Crashes by Year](figures/num_crashes_by_year.png)
+
+When we aggregate by year, we can see that there was a steep increase in fatal airplane crashes up until the 1950s. Part of this increase is likely due to a few things, including the increasing prevalence of plane travel over the 1900s and the two world wars, which involved heavy air fights. Interestingly, we see that from about 1945- the late 1990s, there were consistently higher numbers of plane crashes per year, even though the number was decreasing slightly overall. Then, around the 2000s, the number of fatal plane crashes steeply decreased, to nearly the same levels as the early 1900s, when planes were incredibly rare. It certainly appears to confirm our intuition that plane travel has always been relatively safe, and is certainly even more safe now than it ever has been before.
 
 ![Fatal Plane Crashes By Month, Over Time](figures/heatmap_over_time.png)
 
