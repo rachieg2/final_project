@@ -3,6 +3,7 @@ title: 'Airplane Crashes over Time'
 author: "Rachel Kudzin"
 date: "Due: 12/07/2024"
 output: pdf_document
+header-includes: \usepackage{float}
 ---
 
 ```{r include=FALSE}
@@ -47,13 +48,18 @@ We then completed a series of formatting steps. We ensured that both dates and t
 
 To begin our investigation, it makes sense to look at the trend of plane crashes over time. It seems to be a reasonable assumption that crashes have decreased, but we will need to see the specific information to confirm. Since there are not that many crashes overall, we will aggregate by year.
 
-![Number of Fatal Plane Crashes by Year](figures/num_crashes_by_year.png)
+```{r, echo=FALSE, fig.cap="Number of Fatal Plane Crashes by Year", out.width = '100%', fig.pos="H"}
+knitr::include_graphics("figures/num_crashes_by_year.png")
+```
+
 
 When we aggregate by year, we can see that there was a steep increase in fatal airplane crashes up until the 1950s. Part of this increase is likely due to a few things, including the increasing prevalence of plane travel over the 1900s and the two world wars, which involved heavy air fights. Interestingly, we see that from about 1945- the late 1990s, there were consistently higher numbers of plane crashes per year, even though the number was decreasing slightly overall. Then, around the 2000s, the number of fatal plane crashes steeply decreased, to nearly the same levels as the early 1900s, when planes were incredibly rare. It certainly appears to confirm our intuition that plane travel has always been relatively safe, and is certainly even more safe now than it ever has been before.
 
 However, it is possible that aggregating up by year could hide important trends. Thus, we can also look at a heatmap of the number of crashes by month over the entire time period in the dataset.
 
-![Fatal Plane Crashes By Month, Over Time](figures/heatmap_over_time.png)
+```{r, echo=FALSE, fig.cap="Fatal Plane Crashes By Month, Over Time", out.width = '100%', fig.pos="H"}
+knitr::include_graphics("figures/heatmap_over_time.png")
+```
 
 As we saw before, the bars at each edge, representing the beginning and most recent months, have the fewest fatal crashes, with many having zero or one. Beyond this overall pattern, there does not seem to be a strong trend in the figure, beyond the overall trend of the years in the middle having more crashes, which we saw before. Perhaps January and December have more crashes, but there is not a strong overall structure in the data when it comes to monthly patterns.
 
@@ -61,20 +67,32 @@ As we saw before, the bars at each edge, representing the beginning and most rec
 
 In addition to the overall crash numbers, the dataset contains information about the total number of people onboard, broken into crew and passenger when possible, as well as the number of fatalities, also broken into crew and passenger when available. We can look into the death rate overall, as well as for crew and passengers.
 
-![Violin Plots for Percentage of Fatalities by Crew and Passenger](figures/perc_dead_plot.png)
+```{r, echo=FALSE, fig.cap="Violin Plots for Percentage of Fatalities by Crew and Passenger", out.width = '100%', fig.pos="H"}
+knitr::include_graphics("figures/perc_dead_plot.png")
+```
 
 When we look at the violin plots, it is clear that most crashes in our dataset have a complete fatality rate, with the majority of instances at above a 50% fatality rate. The most interesting trend in the graph appears to be that crew have a higher fatality rate than passengers, even if this rate is only slightly more likely. 
 
 We can, therefore, look at the difference in fatality rates between crews and passengers for the same crashes. There are some planes with no passengers, but there are never planes without a crew, so we should expect some rates to be negative solely due to this reality. 
 
-![Difference in the Percentage of Passenger and Crew Deaths](figures/diff_perc_death.png)
+```{r, echo=FALSE, fig.cap="Difference in the Percentage of Passenger and Crew Deaths", out.width = '100%', fig.pos="H"}
+knitr::include_graphics("figures/diff_perc_death.png")
+```
 
 Perhaps unsurprisingly, most crashes have the same death rate between crew and passengers, which makes sense when there are no survivors. It is interesting to see that most of the rest of the data is relatively evenly spread around the 0 axis, suggesting that passengers and crew survive generally at similar rates, although crew do seem to die slightly more when there are survivors, even though this trend is still slight.
 
-![Number Killed on the Ground over Time](figures/number_killed_ground_plot.png)
+```{r, echo=FALSE, fig.cap="Number Killed on the Ground over Time", out.width = '100%', fig.pos="H"}
+knitr::include_graphics("figures/number_killed_ground_plot.png")
+```
 
-![Airplane Operator with Most Accidents by Decade](figures/operators_most_crashes.png)
+```{r, echo=FALSE, fig.cap="Airplane Operator with Most Accidents by Decade", out.width = '100%', fig.pos="H"}
+knitr::include_graphics("figures/operators_most_crashes.png")
+```
 
-![Locations of Airline Crashes](figures/map_crashes.png)
+```{r, echo=FALSE, fig.cap="Locations of Airline Crashes", out.width = '100%', fig.pos="H"}
+knitr::include_graphics("figures/map_crashes.png")
+```
 
-![First Two Principle Components for Plane Crash Descriptions](figures/pca_decade.png)
+```{r, echo=FALSE, fig.cap="First Two Principle Components for Plane Crash Descriptions", out.width = '100%', fig.pos="H"}
+knitr::include_graphics("figures/pca_decade.png")
+```
