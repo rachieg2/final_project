@@ -116,8 +116,12 @@ Additionally, much of our news coverage of plane crashes in the modern era focus
 
 ### Crash Description Analysis
 
+In addition to these descriptive statistic plots, we wanted to try dimensionality reduction. The dataset comes with brief, written descriptions of each plane crash in English. We used `NLTK` to remove stopwords and tokenize each word. We then turned each description into a vector, representing words available in the texts, leaving only more common words. We then conducted Principal Component Analysis (PCA) on these vectors, hoping to see clustering for different types of crashes.
+
 ```{r, echo=FALSE, fig.cap="First Two Principle Components for Plane Crash Descriptions", out.width = '100%', fig.pos="H"}
 knitr::include_graphics("figures/pca_decade.png")
 ```
+
+This dimensionality reduction did not cluster the data in meaningful ways, and decade is certainly not what this PCA is representing. The other variables we could look at, such as the operator, would be difficult to show in a static plot such as this, so it is not clear exactly why this clustering is occurring. However, this plot may show that this dataset is most interesting from an exploratory data analysis standpoint rather than any dimensionality reduction or modeling lens.
 
 ## Conclusions
