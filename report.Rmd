@@ -116,7 +116,7 @@ Additionally, much of our news coverage of plane crashes in the modern era focus
 
 ### Crash Description Analysis
 
-In addition to these descriptive statistic plots, we wanted to try dimensionality reduction. The dataset comes with brief, written descriptions of each plane crash in English. We used `NLTK` to remove stopwords and tokenize each word. We then turned each description into a vector, representing words available in the texts, leaving only more common words. We then conducted Principal Component Analysis (PCA) on these vectors, hoping to see clustering for different types of crashes.
+In addition to these descriptive statistic plots, we wanted to try dimensionality reduction. The dataset comes with brief, written descriptions of each plane crash in English. We used `NLTK` to remove stopwords and tokenize each word. We then turned each description into a vector, representing words available in the texts, leaving only more common words. We then conducted Principal Component Analysis (PCA) on these vectors, hoping to see clustering for different types of crashes. PCA is a method to reduce high dimensionality data into principal components, or the mathematical vectors which best represent the most information in the dataset. We will look at the first two components, which contain the most information from our text vectors in two dimensions.
 
 ```{r, echo=FALSE, fig.cap="First Two Principle Components for Plane Crash Descriptions", out.width = '100%', fig.pos="H"}
 knitr::include_graphics("figures/pca_decade.png")
@@ -125,3 +125,12 @@ knitr::include_graphics("figures/pca_decade.png")
 This dimensionality reduction did not cluster the data in meaningful ways, and decade is certainly not what this PCA is representing. The other variables we could look at, such as the operator, would be difficult to show in a static plot such as this, so it is not clear exactly why this clustering is occurring. However, this plot may show that this dataset is most interesting from an exploratory data analysis standpoint rather than any dimensionality reduction or modeling lens.
 
 ## Conclusions
+
+The Plane Crash dataset from [Plane Crash Info](https://www.planecrashinfo.com/) contains data full of interesting observations for anyone curious about the history of fatal plane crashes. The reality is that planes are exceptionally safe, as there are only about 5,000 entries from 1908 to today. Even in the worst years for crashes, the 1950s-1990s, there were only about 80 crashes per year. With millions of flights each year, planes are much safer than other common transportation methods, including car travel.
+
+However, the prevalence of fear surrounding plane travel may be due to the fact that most plane crashes have few or no survivors, even as plane travel has gotten much safer recently. Newspapers, of course, report stories of fatal plane crashes as headline news, in part because these crashes are so rare. However, this reporting can cause misconceptions, such as that plane crashes are often over water or that a certain carrier, such as Boeing in the last year, is more deadly. In reality, even with the recent Boeing incidents, Boeing is no more dangerous than any other carrier. Other misconceptions such as these can be disproven when looking at the data itself.
+
+
+### Future Work 
+
+This dataset would likely be best represented in an interactive setting, such as a `d3`-driven `HTML` site. The data, although it includes relatively few columns, has many high-dimensional variables that are difficult to represent in any static form. In the future, I would be interested in investigating the trend of certain operators with the descriptions of the crashes. Additionally, separating the dataset into military versus commercial versus personal crashes could give further insight into the reasons these planes have crashed in the past.
