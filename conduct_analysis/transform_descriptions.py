@@ -7,6 +7,7 @@ import pandas as pd
 
 # Download necessary NLTK resources
 nltk.download("punkt_tab")
+nltk.download("punkt")
 nltk.download("stopwords")
 
 # Set of English stopwords
