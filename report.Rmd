@@ -106,7 +106,7 @@ For the 2000s, 2010s, and 2020s, there have been so few crashes that multiple op
 
 After our transformations of the original dataset, we have latitude and longitude-specific locations for all crashes with location information except twelve. We split the crashes by decade and plotted the crash locations on maps.
 
-```{r, echo=FALSE, fig.cap="Locations of Airline Crashes", out.width = '100%', fig.pos="H"}
+```{r, echo=FALSE, fig.cap="Locations of Airline Crashes", out.height= '100%', out.width='70%', fig.pos="H"}
 knitr::include_graphics("figures/map_crashes.png")
 ```
 
