@@ -40,7 +40,7 @@ As the website states on its [database overview page](https://www.planecrashinfo
 
 ## Create Report
 
-To fully re-create the final report, you can run a simple `Make` command in the container. In the `run_docker.sh` helper script, there are easy helper calls to enter a bash terminal inside the container. Run the following in a `bash` console in the the repository folder:
+To fully re-create the final report, you can run a simple `Make` command in the container. In the `run_docker.sh` helper script, there are easy helper calls to enter a bash terminal inside the container. Run the following in a `bash` console in the the repository folder, after you have started `Docker` in the background:
 
 ```bash
 ./run_docker.sh bash
@@ -50,7 +50,7 @@ make report.pdf
 kill 1
 ```
 
-To create the final report from scratch, even if you have created the report in the past, run the following commands in a bash environment in the repository folder:
+To create the final report from scratch, even if you have created the report in the past, run the following commands in a bash environment in the repository folder, after you have started `Docker` in the background:
 
 ```bash
 ./run_docker.sh bash
@@ -61,7 +61,7 @@ make report.pdf
 kill 1
 ```
 
-The above `Make` call does not rebuild the scraped data, as it takes about 8 hours. If you want to build that first, you can call the following commands in a bash environment in the repository folder:
+The above `Make` call does not rebuild the scraped data, as it takes about 8 hours. If you want to build that first, you can call the following commands in a bash environment in the repository folder, after you have started `Docker` in the background:
 
 ```bash
 ./run_docker.sh bash
